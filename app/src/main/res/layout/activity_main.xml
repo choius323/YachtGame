@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_background_color"
+    android:theme="@style/ThemeOverlay.YachtGame.FullscreenContainer"
+    tools:context=".MainActivity">
+
+    <TableLayout
+        android:id="@+id/scoreTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:visibility="visible">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score1"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/textView0"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score7"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score2"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score8"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score3"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score9"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score4"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score10"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score5"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score11"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score6"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/score12"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/bonusScore"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/totalScore"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:textSize="23sp" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/dice1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/dice3"
+        android:layout_marginRight="17sp"
+        android:layout_toLeftOf="@id/dice2"
+        android:onClick="onClickDice"
+        android:padding="5dp"
+        app:srcCompat="@drawable/dice1" />
+
+    <ImageView
+        android:id="@+id/dice2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/dice3"
+        android:layout_marginEnd="17sp"
+        android:layout_toLeftOf="@id/dice3"
+        android:onClick="onClickDice"
+        android:padding="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/dice3"
+        app:srcCompat="@drawable/dice1" />
+
+    <ImageView
+        android:id="@+id/dice3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/scoreTable"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-270sp"
+        android:onClick="onClickDice"
+        android:padding="5dp"
+        app:srcCompat="@drawable/dice1" />
+
+    <ImageView
+        android:id="@+id/dice4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/dice3"
+        android:layout_marginLeft="17sp"
+        android:layout_toRightOf="@id/dice3"
+        android:onClick="onClickDice"
+        android:padding="5dp"
+        app:srcCompat="@drawable/dice1" />
+
+    <ImageView
+        android:id="@+id/dice5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/dice3"
+        android:layout_marginLeft="17sp"
+        android:layout_toRightOf="@id/dice4"
+        android:onClick="onClickDice"
+        android:padding="5dp"
+        app:srcCompat="@drawable/dice1" />
+
+    <Button
+        android:id="@+id/btnRoll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="-80sp"
+        android:text="roll"
+        android:layout_alignBottom="@id/dice3"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible"
+        app:srcCompat="@android:drawable/ic_menu_rotate"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/tvRollCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/scoreTable"
+        android:layout_alignEnd="@id/scoreTable"
+        android:layout_marginTop="-30sp"
+        android:text="0 / 3"
+        android:textSize="23sp" />
+</RelativeLayout>

@@ -2,7 +2,6 @@ package com.example.yachtgame;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,15 +10,16 @@ import android.widget.ImageView;
 import java.util.Random;
 
 public class Dices {
-
     //주사위 각각의 정보
-    class DiceInfo extends MainActivity{
-        int value = 1; //주사위 눈 값
-        Boolean keep = false; //킵하는지 저장
+    class DiceInfo {
+        int value; //주사위 눈 값
+        Boolean keep; //킵하는지 저장
         int id;
+        ImageView imageView;
 
-        public DiceInfo(int id) {
-            this.id = id;
+        public DiceInfo(ImageView imageView) {
+            this.imageView = imageView;
+            id = imageView.getId();
             value = 1;
             keep = false;
         }
@@ -30,12 +30,13 @@ public class Dices {
     final Animation anim1;
     final Animation anim2;
 
-    private final int diceNumber = 5;
-    public int rollCount = 0;
+    protected static final int diceNumber = 5;
+    private int rollCount = 0;
+    // 주사위 값 저장
     static int[] value;
     DiceInfo dice[];
 
-    public Dices(Context context, AttributeSet attrs, int defStyleAttrs) {
+    public Dices(Context context) {
         value = new int[diceNumber];
 
         anim1 = AnimationUtils.loadAnimation(context, R.anim.rotate);
@@ -44,36 +45,38 @@ public class Dices {
         // 메인에 다이스 뷰 등록
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //주사위 5개 객체 생성
         dice = new DiceInfo[diceNumber];
-        int id = 0;
-        for (int i = 0; i < diceNumber; i++) {
-            id = context.getResources().getIdentifier("dice" + (i + 1), "id", "com.example.yachtgame");
-            dice[i] = new DiceInfo(id);
-        }
     }
 
-    //주사위 굴리기
-    public void rollDice(final ImageView imageView, int i) {
-        if (dice[i].keep == false) {
-            Random rand = new Random();
-            int r = rand.nextInt(6) + 1;
-            Handler delayHandler = new Handler();
+    // 주사위 5개 정보 객체 생성
+    public void addDice(int i, ImageView imageView) {
+        dice[i] = new DiceInfo(imageView);
+    }
 
-            imageView.startAnimation(anim1);
-            delayHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    imageView.startAnimation(anim2);
-                }
-            }, 250);
-            value[i] = r;
-            imageView.setImageResource(context.getResources().getIdentifier("dice" + r, "drawable", "com.example.yachtgame"));
+    public void rollDice() {
+        int i;
+        for (i = 0; i < diceNumber; i++) {
+            if (dice[i].keep == false) {
+                Random rand = new Random();
+                int r = rand.nextInt(6) + 1;
+                Handler delayHandler = new Handler();
+
+                dice[i].imageView.startAnimation(anim1);
+                int finalI = i;
+                delayHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dice[finalI].imageView.startAnimation(anim2);
+                    }
+                }, 250);
+                value[i] = r;
+                dice[i].imageView.setImageResource(context.getResources().getIdentifier("dice" + r, "drawable", "com.example.yachtgame"));
+            }
         }
-        if (rollCount == 3) {
-            imageView.setY(870);
-            dice[i].keep = false;
-        }
+//        if (rollCount == 3) {
+//            imageView.setY(870);
+//            dice[i].keep = false;
+//        }
     }
 
     //주사위 킵
@@ -101,6 +104,14 @@ public class Dices {
             }
         }
         // 찾기 오류
-        return new DiceInfo(0);
+        return new DiceInfo(null);
+    }
+
+    public void addRollCount() {
+        rollCount += 1;
+    }
+
+    public void resetRollCount() {
+        rollCount = 0;
     }
 }

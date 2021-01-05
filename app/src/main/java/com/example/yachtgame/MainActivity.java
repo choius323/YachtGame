@@ -11,29 +11,21 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnRoll;
     private ImageButton btnReset;
+    private Dices dices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 굴리기 버튼 지정
+        dices = new Dices(getApplicationContext());
+        for(int i=0;i<Dices.diceNumber;i++) {
+            int id = getResources().getIdentifier("dice" + (i + 1), "id", "com.example.yachtgame");
+            dices.addDice(i, findViewById(id));
+        }
+
         btnRoll =  findViewById(R.id.btnRoll);
-        btnRoll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        // 게임 초기화 버튼 지정
         btnReset =  findViewById(R.id.btnReset);
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     // 하단바 제거
@@ -58,5 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
     // 주사위 클릭(킵 설정)
     public void onClickDice(View view) {
+
+    }
+
+    public void rollDices(View view) {
+        dices.rollDice();
+    }
+
+    public void resetGame(View view){
+
     }
 }

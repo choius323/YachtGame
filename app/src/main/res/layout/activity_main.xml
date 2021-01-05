@@ -253,22 +253,24 @@
         android:id="@+id/btnRoll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/dice3"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="176dp"
         android:layout_marginBottom="-80sp"
-        android:text="roll"
-        android:layout_alignBottom="@id/dice3"
-        android:layout_centerHorizontal="true"/>
+        android:onClick="rollDices"
+        android:text="roll" />
 
     <ImageButton
         android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
+        android:onClick="resetGame"
         android:visibility="invisible"
-        app:srcCompat="@android:drawable/ic_menu_rotate"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+        app:srcCompat="@android:drawable/ic_menu_rotate" />
 
     <TextView
         android:id="@+id/tvRollCount"

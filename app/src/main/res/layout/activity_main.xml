@@ -256,7 +256,7 @@
         android:layout_alignBottom="@id/dice3"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="176dp"
-        android:layout_marginBottom="-80sp"
+        android:layout_marginBottom="-110sp"
         android:onClick="rollDices"
         android:text="roll" />
 
@@ -278,7 +278,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/scoreTable"
         android:layout_alignEnd="@id/scoreTable"
-        android:layout_marginTop="-30sp"
+        android:layout_marginTop="-40sp"
         android:text="0 / 3"
         android:textSize="23sp" />
 </RelativeLayout>

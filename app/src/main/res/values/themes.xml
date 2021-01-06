@@ -15,8 +15,7 @@
     </style>
 
     <style name="Theme.YachtGame.Fullscreen" parent="Theme.YachtGame">
-        <item name="android:actionBarStyle">@style/Widget.Theme.YachtGame.ActionBar.Fullscreen
-        </item>
+        <item name="android:actionBarStyle">@style/Widget.Theme.YachtGame.ActionBar.Fullscreen</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
     </style>

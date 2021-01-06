@@ -1,6 +1,7 @@
 <resources>
 
     <style name="Widget.Theme.YachtGame.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="windowNoTitle">true</item>
         <item name="android:background">@color/black_overlay</item>
     </style>
 

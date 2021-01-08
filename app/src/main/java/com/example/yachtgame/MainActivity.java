@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     // 점수판 클릭(점수 입력)
     public void onClickScore(View view) {
         dices.resetRollCount();
+        dices.resetDices();
     }
 
     // 주사위 클릭(킵 설정)

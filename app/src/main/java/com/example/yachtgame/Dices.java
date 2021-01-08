@@ -35,6 +35,7 @@ public class Dices {
     private int rollCount = 0;
     // 주사위 값 저장
     static int[] value;
+    // 주사위 5개의 정보
     DiceInfo[] dice;
 
     public Dices(Context context) {
@@ -107,6 +108,13 @@ public class Dices {
     public void allDicesSetKeep() {
         for (int i = 0; i < diceNumber; i++) {
             dice[i].keep = true;
+        }
+    }
+
+    public void resetDices(){
+        for (int i = 0; i < diceNumber; i++) {
+            dice[i].keep = false;
+            dice[i].imageView.setY(beginDiceY);
         }
     }
 }

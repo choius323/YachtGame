@@ -16,156 +16,219 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:theme="@style/TableStyle">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score1Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score1Name"/>
 
             <TextView
                 android:id="@+id/score1"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_width="30dp"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
 
             <TextView
-                android:id="@+id/textView0"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:textSize="23sp" />
+                android:id="@+id/score7Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score7Name"/>
 
             <TextView
                 android:id="@+id/score7"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_width="30dp"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score2Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score2Name"/>
 
             <TextView
                 android:id="@+id/score2"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/score8Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/score8Name"/>
 
             <TextView
                 android:id="@+id/score8"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score3Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score3Name"/>
 
             <TextView
                 android:id="@+id/score3"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/score9Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/score9Name"/>
 
             <TextView
                 android:id="@+id/score9"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score4Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score4Name"/>
 
             <TextView
                 android:id="@+id/score4"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/score10Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/score10Name"/>
 
             <TextView
                 android:id="@+id/score10"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score5Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score5Name"/>
 
             <TextView
                 android:id="@+id/score5"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/score11Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/score11Name"/>
 
             <TextView
                 android:id="@+id/score11"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
-
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/score6Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/score6Name"/>
 
             <TextView
                 android:id="@+id/score6"
-                android:layout_width="53dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/score12Name"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/score12Name"/>
 
             <TextView
                 android:id="@+id/score12"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
 
         <TableRow
@@ -173,23 +236,34 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/bonusScore"
-                android:layout_width="53dp"
+                android:id="@+id/subScoreName"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
+                android:textAlignment="center"
+                android:text="@string/subScoreName"/>
+
+            <TextView
+                android:id="@+id/subScore"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/totalScoreName"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:onClick="onClickScore"
                 android:textAlignment="center"
-                android:textSize="23sp" />
+                android:text="@string/totalScoreName"/>
 
             <TextView
                 android:id="@+id/totalScore"
-                android:layout_width="38dp"
                 android:layout_height="match_parent"
-                android:layout_column="2"
                 android:layout_weight="1"
                 android:onClick="onClickScore"
-                android:textAlignment="center"
-                android:textSize="23sp" />
+                android:textAlignment="center"/>
         </TableRow>
     </TableLayout>
 
@@ -258,7 +332,7 @@
         android:layout_marginEnd="176dp"
         android:layout_marginBottom="-110sp"
         android:onClick="rollDices"
-        android:text="roll" />
+        android:text="@string/rollButton" />
 
     <ImageButton
         android:id="@+id/btnReset"

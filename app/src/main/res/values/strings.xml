@@ -1,5 +1,18 @@
 <resources>
-    <string name="app_name">YachtGame</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name" translatable="false">YachtGame</string>
+    <string name="score1Name">Ones</string>
+    <string name="score2Name">Twos</string>
+    <string name="score3Name">Threes</string>
+    <string name="score4Name">Fours</string>
+    <string name="score5Name">Fives</string>
+    <string name="score6Name">Sixes</string>
+    <string name="score7Name">Choice</string>
+    <string name="score8Name">4 of a Kind</string>
+    <string name="score9Name">Full House</string>
+    <string name="score10Name">Small Straight</string>
+    <string name="score11Name">Large Straight</string>
+    <string name="score12Name">Yacht!</string>
+    <string name="subScoreName">Sub Score</string>
+    <string name="totalScoreName">Total Score</string>
+    <string name="rollButton">ROLL</string>
 </resources>

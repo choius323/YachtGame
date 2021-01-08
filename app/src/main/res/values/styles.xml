@@ -9,7 +9,8 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
     <style name="TableStyle" parent="">
-        <item name="android:fontFamily">@android:textSize</item>
+        <item name="android:textSize">23sp</item>
     </style>
 </resources>

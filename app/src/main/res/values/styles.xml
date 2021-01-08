@@ -11,6 +11,10 @@
     </style>
 
     <style name="TableStyle" parent="">
-        <item name="android:textSize">23sp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginVertical">1dp</item>
+        <item name="android:layout_marginHorizontal">1dp</item>
+        <item name="android:background">@color/table_background</item>
+        <item name="android:padding">1dp</item>
     </style>
 </resources>

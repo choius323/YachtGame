@@ -34,13 +34,13 @@ public class Dices {
     // 굴리는 횟수
     private int rollCount = 0;
     // 주사위 값 저장
-    static int[] value;
+    static int[] values;
     // 주사위 5개의 정보
     DiceInfo[] dice;
 
     public Dices(Context context) {
-        value = new int[diceNumber];
-        anim1 = AnimationUtils.loadAnimation(context, R.anim.rotate);
+        values = new int[diceNumber];
+        anim1 = AnimationUtils.loadAnimation(context, R.anim.roll);
         this.context = context;
         dice = new DiceInfo[diceNumber];
     }
@@ -57,7 +57,7 @@ public class Dices {
                 Random rand = new Random();
                 int r = rand.nextInt(6) + 1;
 
-                value[i] = r;
+                values[i] = r;
                 dice[i].imageView.startAnimation(anim1);
                 dice[i].imageView.setImageResource(context.getResources().getIdentifier("dice" + r, "drawable", "com.example.yachtgame"));
             }
@@ -87,11 +87,11 @@ public class Dices {
 
     //주사위 값 반환
     public int[] getDiceValues() {
-        return value;
+        return values;
     }
 
     // 객체 id로 주사위 찾기
-    public DiceInfo getDice(int id) {
+    private DiceInfo getDice(int id) {
         for (int i = 0; i < diceNumber; i++) {
             if (dice[i].id == id) {
                 return dice[i];

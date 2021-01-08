@@ -2,7 +2,9 @@ package com.example.yachtgame;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnReset;
     private TextView rollTextView;
     private Dices dices;
+    private ScoreTable scoreTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +27,45 @@ public class MainActivity extends AppCompatActivity {
 
         btnRoll = findViewById(R.id.btnRoll);
         rollTextView = findViewById(R.id.tvRollCount);
+        rollTextView.setText("Roll Count : 0 / 3");
         btnReset = findViewById(R.id.btnReset);
 
+        // Dice 클래스 객체 생성
         dices = new Dices(getApplicationContext());
         for (int i = 0; i < Dices.diceNumber; i++) {
             int id = getResources().getIdentifier("dice" + (i + 1), "id", "com.example.yachtgame");
             dices.addDice(i, findViewById(id));
         }
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        Dices.beginDiceY = findViewById(R.id.dice1).getY();
-        Dices.moveDiceY = (float) (metrics.heightPixels * 0.1);
+        // ScoreTable 객체 생성
+        TextView[] scoreViews = new TextView[ScoreTable.scoreNum];
+        for (int i = 0; i < ScoreTable.scoreNum; i++) {
+            int id = getResources().getIdentifier("score" + (i + 1), "id", "com.example.yachtgame");
+            scoreViews[i] = findViewById(id);
+        }
+        scoreTable = new ScoreTable(scoreViews);
+
+        // 주사위 초기 위치, 움직이는 거리 계산
+        ImageView dice = findViewById(R.id.dice1);
+        dice.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                dice.getViewTreeObserver().removeOnPreDrawListener(this);
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                Dices.beginDiceY = findViewById(R.id.dice1).getY();
+                Log.d("Dice Begin Y", "" + Dices.beginDiceY);
+                Dices.moveDiceY = (float) (metrics.heightPixels * 0.1);
+                return true;
+            }
+        });
     }
 
     // 점수판 클릭(점수 입력)
     public void onClickScore(View view) {
         dices.resetRollCount();
         dices.resetDices();
+        scoreTable.calcScore((TextView)view, dices.getDiceValues());
     }
 
     // 주사위 클릭(킵 설정)
@@ -51,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void rollDices(View view) {
         int rollCount = dices.rollDice();
-        rollTextView.setText(rollCount + " / 3");
+        rollTextView.setText("Roll Count : " + rollCount + " / 3");
     }
 
     // 게임 리셋 버튼 클릭

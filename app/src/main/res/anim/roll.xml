@@ -14,7 +14,7 @@
         android:fromXDelta="0"
         android:toXDelta="0"
         android:fromYDelta="0"
-        android:toYDelta="-200%" />
+        android:toYDelta="-400%" />
     <translate
         android:startOffset="400"
         android:repeatCount="0"
@@ -22,5 +22,5 @@
         android:fromXDelta="0"
         android:toXDelta="0"
         android:fromYDelta="0"
-        android:toYDelta="200%" />
+        android:toYDelta="400%" />
 </set>

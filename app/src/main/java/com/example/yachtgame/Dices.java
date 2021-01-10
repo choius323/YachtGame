@@ -57,10 +57,11 @@ public class Dices {
                 Random rand = new Random();
                 int r = rand.nextInt(6) + 1;
 
-                values[i] = r;
+                dice[i].value = r;
                 dice[i].imageView.startAnimation(anim1);
                 dice[i].imageView.setImageResource(context.getResources().getIdentifier("dice" + r, "drawable", "com.example.yachtgame"));
             }
+            values[i] = dice[i].value;
         }
         rollCount += 1;
 //            if (rollCount == 3) { // 테스트에서 임시 주석

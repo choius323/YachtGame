@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import java.util.Random;
 
 public class Dices {
-    //주사위 각각의 정보
+//    주사위 각각의 정보
     static class DiceInfo {
-        int value; //주사위 눈 값
-        Boolean keep; //킵하는지 저장
+//        주사위 눈 값
+        int value;
+//        킵하는지 저장
+        Boolean keep;
         int id;
         ImageView imageView;
 
@@ -25,17 +27,17 @@ public class Dices {
     }
 
     Context context;
-    // 굴리기 애니메이션
+//     굴리기 애니메이션
     final Animation anim1;
-    // 주사위 뷰 시작위치, 이동 거리
+//     주사위 뷰 시작위치, 이동 거리
     static float beginDiceY, moveDiceY;
-    // 주사위 갯수
+//     주사위 갯수
     protected static final int diceNumber = 5;
-    // 굴리는 횟수
+//     굴리는 횟수
     private int rollCount = 0;
-    // 주사위 값 저장
+//     주사위 값 저장
     static int[] values;
-    // 주사위 5개의 정보
+//     주사위 5개의 정보
     DiceInfo[] dice;
 
     public Dices(Context context) {
@@ -72,7 +74,7 @@ public class Dices {
         return rollCount;
     }
 
-    //주사위 킵
+//    주사위 킵
     public void keepDice(ImageView diceView) {
         DiceInfo d = getDice(diceView.getId());
         float y = d.imageView.getY();
@@ -86,19 +88,19 @@ public class Dices {
         }
     }
 
-    //주사위 값 반환
+//    주사위 값 반환
     public int[] getDiceValues() {
         return values;
     }
 
-    // 객체 id로 주사위 찾기
+//     객체 id로 주사위 찾기
     private DiceInfo getDice(int id) {
         for (int i = 0; i < diceNumber; i++) {
             if (dice[i].id == id) {
                 return dice[i];
             }
         }
-        // 찾기 오류
+//         찾기 오류
         return new DiceInfo(null);
     }
 

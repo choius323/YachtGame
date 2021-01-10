@@ -6,18 +6,14 @@ import java.util.Arrays;
 
 public class ScoreTable {
     TextView[] scoreViews;
-    private int totalScore = 0;
-    private int subScore = 0;
     public static int scoreNum = 12;
 
     public ScoreTable(TextView[] scoreViews) {
         this.scoreViews = scoreViews;
     }
 
-    // 해당하는 칸 점수 계산
+//     해당하는 칸 점수 계산
     public void calcScore(TextView selectedView, int[] values) {
-        subScore = 0;
-        totalScore = 0;
         int sum = 0;
 
 //        Ones ~ Sixes (selected number * count)
@@ -33,53 +29,40 @@ public class ScoreTable {
         }
         Arrays.sort(values);
 
-//         Choice (sum values)
         if (scoreViews[6] == selectedView) {
+//            Choice (sum values)
             for (int value : values) {
                 sum += value;
             }
-//             4 of a Kind (sum values)
+
         } else if (scoreViews[7] == selectedView) {
+//            4 of a Kind (sum values)
             if (values[0] == values[3] || values[1] == values[4]) {
                 sum = values[0] + values[1] * 3 + values[4];
             }
-//            Full House (sum values)
+
         } else if (scoreViews[8] == selectedView) {
+//            Full House (sum values)
             if (values[0] == values[1] && values[3] == values[4] && values[0] != values[4]) {
                 if (values[2] == values[1] || values[2] == values[3]) {
                     sum = values[0] * 2 + values[2] + values[4] * 2;
                 }
             }
-//            Small Straight (15)
+
         } else if (scoreViews[9] == selectedView) {
+//            Small Straight (15)
             int count = 0;
-            for (int i = 0; i < values.length - 2; i++) {
-                if (values[i] + 1 != values[i + 1]) {
-                    if ( count == 0){
-                        count += 1;
-                    } else {
-                        sum = 0;
-                        break;
-                    }
+            for (int i = 0; i < values.length - 1; i++) {
+                if (values[i] + 1 == values[i + 1]) {
+                    count += 1;
                 }
+            }
+            if (count >= 3) {
                 sum = 15;
             }
-            if (sum != 15) {
-                for (int i = 1; i < values.length - 1; i++) {
-                    if (values[i] + 1 != values[i + 1]) {
-                        if ( count == 0){
-                            count += 1;
-                        } else {
-                            sum = 0;
-                            break;
-                        }
-                    }
-                    sum = 15;
-                }
-            }
 
-//            Large Straight (30)
         } else if (scoreViews[10] == selectedView) {
+//            Large Straight (30)
             for (int i = 0; i < values.length - 1; i++) {
                 if (values[i] + 1 != values[i + 1]) {
                     sum = 0;
@@ -87,17 +70,47 @@ public class ScoreTable {
                 }
                 sum = 30;
             }
-//            Yacht (50)
+
         } else if (scoreViews[11] == selectedView) {
+//            Yacht (50)
             int temp = values[0];
             for (int i = 0; i < values.length && temp == values[i]; i++) {
                 if (i == 4) {
                     sum = 50;
                 }
             }
-//            Error
         }
 
         selectedView.setText("" + sum);
+    }
+
+//    서브 점수 계산 (>=63 이면 총점 +35점)
+    public int getSubScore() {
+        int subScore = 0;
+        for (TextView view : Arrays.copyOf(scoreViews, 6)) {
+            String str = (String) view.getText();
+            if (str.equals("")) {
+                subScore += 0;
+            } else {
+                subScore += Integer.parseInt(str);
+            }
+        }
+
+        return subScore;
+    }
+
+//    총점 계산
+    public int getTotalScore() {
+        int totalScore = 0;
+        for(TextView view : Arrays.copyOfRange(scoreViews, 6, 12)){
+            String str = (String) view.getText();
+            if (str.equals("")) {
+                totalScore += 0;
+            } else {
+                totalScore += Integer.parseInt(str);
+            }
+        }
+
+        return totalScore;
     }
 }

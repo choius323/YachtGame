@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView rollTextView;
     private Dices dices;
     private ScoreTable scoreTable;
+    private TextView[] scoreViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,22 +31,22 @@ public class MainActivity extends AppCompatActivity {
         rollTextView.setText("Roll Count : 0 / 3");
         btnReset = findViewById(R.id.btnReset);
 
-        // Dice 클래스 객체 생성
+//         Dice 클래스 객체 생성
         dices = new Dices(getApplicationContext());
         for (int i = 0; i < Dices.diceNumber; i++) {
             int id = getResources().getIdentifier("dice" + (i + 1), "id", "com.example.yachtgame");
             dices.addDice(i, findViewById(id));
         }
 
-        // ScoreTable 객체 생성
-        TextView[] scoreViews = new TextView[ScoreTable.scoreNum];
+//         ScoreTable 객체 생성
+        scoreViews = new TextView[ScoreTable.scoreNum];
         for (int i = 0; i < ScoreTable.scoreNum; i++) {
             int id = getResources().getIdentifier("score" + (i + 1), "id", "com.example.yachtgame");
             scoreViews[i] = findViewById(id);
         }
         scoreTable = new ScoreTable(scoreViews);
 
-        // 주사위 초기 위치, 움직이는 거리 계산
+//         주사위 초기 위치, 움직이는 거리 계산
         ImageView dice = findViewById(R.id.dice1);
         dice.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -61,14 +62,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // 점수판 클릭(점수 입력)
+//     점수판 클릭(점수 입력)
     public void onClickScore(View view) {
         dices.resetRollCount();
         dices.resetDices();
         scoreTable.calcScore((TextView)view, dices.getDiceValues());
+
+        int subScore = scoreTable.getSubScore();
+        int totalScore = scoreTable.getTotalScore() + subScore;
+        if (subScore >= 63){
+            totalScore += 35;
+        }
+        ((TextView)findViewById(R.id.subScore)).setText("" + subScore);
+        ((TextView)findViewById(R.id.totalScore)).setText("" + totalScore);
     }
 
-    // 주사위 클릭(킵 설정)
+//     주사위 클릭(킵 설정)
     public void onClickDice(View view) {
         dices.keepDice((ImageView) view);
     }
@@ -78,14 +87,18 @@ public class MainActivity extends AppCompatActivity {
         rollTextView.setText("Roll Count : " + rollCount + " / 3");
     }
 
-    // 게임 리셋 버튼 클릭
+//     게임 리셋 버튼 클릭
     public void resetGame(View view) {
-        // 주사위 초기화
+//         주사위 초기화
         dices = new Dices(getApplicationContext());
-        // 스코어 보드 초기화
+//         점수표 초기화
+        for (int i = 0; i < 12; i++){
+            scoreViews[i].setText("");
+        }
+        scoreTable = new ScoreTable(scoreViews);
     }
 
-    // 전체화면 모드
+//     전체화면 모드
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

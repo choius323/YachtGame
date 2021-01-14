@@ -47,13 +47,15 @@ public class Dices {
         dice = new DiceInfo[diceNumber];
     }
 
-    // 주사위 5개 정보 객체 생성
+//     주사위 5개 정보 객체 생성
     public void addDice(int i, ImageView imageView) {
         dice[i] = new DiceInfo(imageView);
+//        시작할 때 주사위 킵 불가
+        dice[i].imageView.setClickable(false);
     }
 
     public int rollDice() {
-//        if (rollCount < 3){ // 테스트에서 임시 주석
+        if (rollCount < 3){ // 테스트에서 임시 주석
         for (int i = 0; i < diceNumber; i++) {
             if (dice[i].keep == false) {
                 Random rand = new Random();
@@ -66,10 +68,14 @@ public class Dices {
             values[i] = dice[i].value;
         }
         rollCount += 1;
-//            if (rollCount == 3) { // 테스트에서 임시 주석
-//                allDicesSetKeep();
-//            }
-//        }
+//        주사위 굴리는 기회 끝
+            if (rollCount == 3) { // 테스트에서 임시 주석
+                allDicesSetKeep();
+                dicesClickable(false);
+            } else {
+                dicesClickable(true);
+            }
+        }
 
         return rollCount;
     }
@@ -118,6 +124,12 @@ public class Dices {
         for (int i = 0; i < diceNumber; i++) {
             dice[i].keep = false;
             dice[i].imageView.setY(beginDiceY);
+        }
+    }
+
+    public void dicesClickable(boolean clickable){
+        for(DiceInfo d : dice){
+            d.imageView.setClickable(clickable);
         }
     }
 }

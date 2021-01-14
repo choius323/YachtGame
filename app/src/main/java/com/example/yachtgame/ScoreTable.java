@@ -10,10 +10,11 @@ public class ScoreTable {
 
     public ScoreTable(TextView[] scoreViews) {
         this.scoreViews = scoreViews;
+        scoresClickable(false);
     }
 
 //     해당하는 칸 점수 계산
-    public void calcScore(TextView selectedView, int[] values) {
+    public int calcScore(TextView selectedView, int[] values) {
         int sum = 0;
 
 //        Ones ~ Sixes (selected number * count)
@@ -81,7 +82,8 @@ public class ScoreTable {
             }
         }
 
-        selectedView.setText("" + sum);
+        scoresClickable(false);
+        return sum;
     }
 
 //    서브 점수 계산 (>=63 이면 총점 +35점)
@@ -112,5 +114,18 @@ public class ScoreTable {
         }
 
         return totalScore;
+    }
+
+    public void scoresClickable(boolean clickable){
+        for(TextView s : scoreViews){
+            s.setClickable(clickable);
+        }
+    }
+
+    public void resetScoreViews(){
+        for(TextView s : scoreViews){
+            s.setText("");
+        }
+        scoresClickable(false);
     }
 }

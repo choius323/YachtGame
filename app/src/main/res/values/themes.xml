@@ -12,16 +12,20 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="Theme.YachtGame.Fullscreen" parent="Theme.YachtGame">
         <item name="android:actionBarStyle">@style/Widget.Theme.YachtGame.ActionBar.Fullscreen</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
+
     </style>
 
-    <style name="ThemeOverlay.YachtGame.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+    <style name="ThemeOverlay.YachtGame.FullscreenContainer" parent="Theme.YachtGame.Fullscreen">
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
+        <item name="android:background">@color/main_background_color</item>
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>

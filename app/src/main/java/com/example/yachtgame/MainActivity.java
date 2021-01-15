@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        doFullScreen();
 
 //         Dice(주사위 그룹) 클래스 객체 생성
         dices = new Dices(getApplicationContext());
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         btnReset = findViewById(R.id.btnReset);
     }
 
-//     점수판 클릭(점수 입력)
+    //     점수판 클릭(점수 입력)
     public void onClickScore(View view) {
 //        비어있을 때만 작동
         TextView textView = (TextView) view;
@@ -92,37 +93,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//     주사위 클릭(킵 설정)
+    //     주사위 클릭(킵 설정)
     public void onClickDice(View view) {
         dices.keepDice((ImageView) view);
     }
 
-//    주사위 굴리기
+    //    주사위 굴리기
     public void rollDices(View view) {
         int rollCount = dices.rollDice();
         setRollCountText(rollCount);
         scoreTable.scoresClickable(true);
     }
 
-//     게임 리셋 버튼 클릭
+    //     게임 리셋 버튼 클릭
     public void resetGame(View view) {
         dices.resetDices();
         dices.resetRollCount();
         scoreTable.resetScoreViews();
-        ((TextView)findViewById(R.id.subScore)).setText("");
-        ((TextView)findViewById(R.id.totalScore)).setText("");
+        setRollCountText(dices.getRollCount());
+        ((TextView) findViewById(R.id.subScore)).setText("");
+        ((TextView) findViewById(R.id.totalScore)).setText("");
         fillScore = 0;
 
         btnReset.setVisibility(View.INVISIBLE);
         btnRoll.setClickable(true);
     }
-    
-//    roll Count 텍스트 설정
-    public void setRollCountText(int count){
+
+    //    roll Count 텍스트 설정
+    public void setRollCountText(int count) {
         rollTextView.setText(String.format(getResources().getString(R.string.rollCountText), count));
     }
-    
-//     전체화면 모드
+
+    //     전체화면 모드
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -135,5 +137,16 @@ public class MainActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    private void doFullScreen() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 }

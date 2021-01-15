@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background_color"
     android:theme="@style/ThemeOverlay.YachtGame.FullscreenContainer"
     tools:context=".MainActivity">
 
@@ -318,6 +317,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="176dp"
         android:layout_marginBottom="-110sp"
+        android:paddingHorizontal="40dp"
+        android:letterSpacing="0.3"
         android:onClick="rollDices"
         android:text="@string/rollButton" />
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">YachtGame</string>
+    <string name="app_name" translatable="false">Yacht Dice Game</string>
     <string name="score1Name" translatable="false">Ones</string>
     <string name="score2Name" translatable="false">Twos</string>
     <string name="score3Name" translatable="false">Threes</string>
@@ -16,4 +16,7 @@
     <string name="totalScoreName" translatable="false">Total Score</string>
     <string name="rollButton" translatable="false">ROLL</string>
     <string name="rollCountText" translatable="false">Roll Count : %d / 3</string>
+    <string name="startGame" translatable="false">Start Game</string>
+    <string name="exit" translatable="false">Exit</string>
+    <string name="viewRecord" translatable="false">Record</string>
 </resources>

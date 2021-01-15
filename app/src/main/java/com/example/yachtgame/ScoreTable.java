@@ -78,6 +78,7 @@ public class ScoreTable {
             for (int i = 0; i < values.length && temp == values[i]; i++) {
                 if (i == 4) {
                     sum = 50;
+                    break;
                 }
             }
         }

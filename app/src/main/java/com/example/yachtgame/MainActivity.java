@@ -26,11 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnRoll = findViewById(R.id.btnRoll);
-        rollTextView = findViewById(R.id.tvRollCount);
-        rollTextView.setText("Roll Count : 0 / 3");
-        btnReset = findViewById(R.id.btnReset);
-
 //         Dice(주사위 그룹) 클래스 객체 생성
         dices = new Dices(getApplicationContext());
         for (int i = 0; i < Dices.diceNumber; i++) {
@@ -60,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        btnRoll = findViewById(R.id.btnRoll);
+        rollTextView = findViewById(R.id.tvRollCount);
+        setRollCountText(dices.getRollCount());
+        btnReset = findViewById(R.id.btnReset);
     }
 
 //     점수판 클릭(점수 입력)
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.subScore)).setText("" + subScore);
             ((TextView) findViewById(R.id.totalScore)).setText("" + totalScore);
 
-            rollTextView.setText("Roll Count : 0 / 3");
+            setRollCountText(dices.getRollCount());
             dices.resetDices();
             dices.dicesClickable(false);
 //        점수판 다 채웠는지 확인
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 //    주사위 굴리기
     public void rollDices(View view) {
         int rollCount = dices.rollDice();
-        rollTextView.setText("Roll Count : " + rollCount + " / 3");
+        setRollCountText(rollCount);
         scoreTable.scoresClickable(true);
     }
 
@@ -116,7 +116,12 @@ public class MainActivity extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
         btnRoll.setClickable(true);
     }
-
+    
+//    roll Count 텍스트 설정
+    public void setRollCountText(int count){
+        rollTextView.setText(String.format(getResources().getString(R.string.rollCountText), count));
+    }
+    
 //     전체화면 모드
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

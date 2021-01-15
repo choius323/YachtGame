@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">YachtGame</string>
-    <string name="score1Name">Ones</string>
-    <string name="score2Name">Twos</string>
-    <string name="score3Name">Threes</string>
-    <string name="score4Name">Fours</string>
-    <string name="score5Name">Fives</string>
-    <string name="score6Name">Sixes</string>
-    <string name="score7Name">Choice</string>
-    <string name="score8Name">4 of a Kind</string>
-    <string name="score9Name">Full House</string>
-    <string name="score10Name">Small Straight</string>
-    <string name="score11Name">Large Straight</string>
-    <string name="score12Name">Yacht!</string>
-    <string name="subScoreName">Sub Score</string>
-    <string name="totalScoreName">Total Score</string>
-    <string name="rollButton">ROLL</string>
+    <string name="score1Name" translatable="false">Ones</string>
+    <string name="score2Name" translatable="false">Twos</string>
+    <string name="score3Name" translatable="false">Threes</string>
+    <string name="score4Name" translatable="false">Fours</string>
+    <string name="score5Name" translatable="false">Fives</string>
+    <string name="score6Name" translatable="false">Sixes</string>
+    <string name="score7Name" translatable="false">Choice</string>
+    <string name="score8Name" translatable="false">4 of a Kind</string>
+    <string name="score9Name" translatable="false">Full House</string>
+    <string name="score10Name" translatable="false">Small Straight</string>
+    <string name="score11Name" translatable="false">Large Straight</string>
+    <string name="score12Name" translatable="false">Yacht!</string>
+    <string name="subScoreName" translatable="false">Sub Score</string>
+    <string name="totalScoreName" translatable="false">Total Score</string>
+    <string name="rollButton" translatable="false">ROLL</string>
+    <string name="rollCountText" translatable="false">Roll Count : %d / 3</string>
 </resources>

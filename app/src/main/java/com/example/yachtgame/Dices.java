@@ -132,4 +132,8 @@ public class Dices {
             d.imageView.setClickable(clickable);
         }
     }
+
+    public int getRollCount(){
+        return rollCount;
+    }
 }

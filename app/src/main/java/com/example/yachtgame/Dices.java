@@ -110,8 +110,9 @@ public class Dices {
         return new DiceInfo(null);
     }
 
-    public void resetRollCount() {
+    public int resetRollCount() {
         rollCount = 0;
+        return rollCount;
     }
 
     public void allDicesSetKeep() {

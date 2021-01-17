@@ -334,6 +334,17 @@
         android:visibility="invisible"
         app:srcCompat="@android:drawable/ic_menu_rotate" />
 
+    <ImageButton
+        android:id="@+id/btnExitGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:onClick="exitGame"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
     <TextView
         android:id="@+id/tvRollCount"
         android:layout_width="wrap_content"

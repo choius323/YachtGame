@@ -1,15 +1,22 @@
 package com.example.yachtgame;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Dices dices;
     private ScoreTable scoreTable;
     private int fillScore = 0;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 DisplayMetrics metrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(metrics);
                 Dices.beginDiceY = findViewById(R.id.dice1).getY();
-                Log.d("Dice Begin Y", "" + Dices.beginDiceY);
                 Dices.moveDiceY = (float) (metrics.heightPixels * 0.1);
                 return true;
             }
@@ -61,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         rollTextView = findViewById(R.id.tvRollCount);
         setRollCountText(dices.getRollCount());
         btnReset = findViewById(R.id.btnReset);
+
+//        점수 기록용 db 객체 생성
+        DBHelper helper = new DBHelper(this, "UserScore.db", null, 1);
+        try {
+            db = helper.getWritableDatabase();
+        } catch (SQLException e) {
+            db = helper.getReadableDatabase();
+        }
     }
 
     //     점수판 클릭(점수 입력)
@@ -80,15 +95,14 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.subScore)).setText("" + subScore);
             ((TextView) findViewById(R.id.totalScore)).setText("" + totalScore);
 
-            setRollCountText(dices.getRollCount());
+            setRollCountText(dices.resetRollCount());
             dices.resetDices();
             dices.dicesClickable(false);
 //        점수판 다 채웠는지 확인
             if (fillScore < 12) {
-                dices.resetRollCount();
+//                setRollCountText(dices.resetRollCount());
             } else {
-                btnReset.setVisibility(View.VISIBLE);
-                btnRoll.setClickable(false);
+                endGame(totalScore);
             }
         }
     }
@@ -105,6 +119,40 @@ public class MainActivity extends AppCompatActivity {
         scoreTable.scoresClickable(true);
     }
 
+    //    모든 칸을 채운 후 게임 끝
+    public void endGame(int totalScore) {
+        btnReset.setVisibility(View.VISIBLE);
+        btnRoll.setClickable(false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("finish!!").setMessage("Total Score : " + totalScore);
+        builder.setCancelable(false);
+
+        EditText userName = new EditText(this);
+        userName.setHint("User Name");
+        builder.setView(userName);
+
+//        Ok 버튼 클릭
+        builder.setPositiveButton("Record", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                DB에 데이터 저장
+                db.execSQL("Insert Into ScoreBoard (Name, Score) values ('" + userName.getText().toString() + "', '" + totalScore + "')");
+            }
+        });
+
+//        Cancel 버튼 클릭
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog editDialog = builder.create();
+        editDialog.show();
+    }
+
     //     게임 리셋 버튼 클릭
     public void resetGame(View view) {
         dices.resetDices();
@@ -117,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnReset.setVisibility(View.INVISIBLE);
         btnRoll.setClickable(true);
+    }
+
+    public void exitGame(View view) {
+        finish();
     }
 
     //    roll Count 텍스트 설정
@@ -148,5 +200,24 @@ public class MainActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                         View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    //    점수 기록 DB
+    static class DBHelper extends SQLiteOpenHelper {
+
+        public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+            super(context, name, factory, version);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("Create Table if not exists ScoreBoard (_id INTEGER primary key autoincrement, Name TEXT, Score INTEGER)");
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("drop table if exists ScoreBoard");
+            onCreate(db);
+        }
     }
 }

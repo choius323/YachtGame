@@ -19,4 +19,5 @@
     <string name="startGame" translatable="false">Start Game</string>
     <string name="exit" translatable="false">Exit</string>
     <string name="viewRecord" translatable="false">Record</string>
+    <string name="scoreRecordTitle">Score Record</string>
 </resources>

@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/main_background_color</item>
     </style>
 
     <style name="Theme.YachtGame.Fullscreen" parent="Theme.YachtGame">
@@ -25,7 +26,6 @@
 
     <style name="ThemeOverlay.YachtGame.FullscreenContainer" parent="Theme.YachtGame.Fullscreen">
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
-        <item name="android:background">@color/main_background_color</item>
         <item name="android:textSize">30sp</item>
     </style>
 </resources>

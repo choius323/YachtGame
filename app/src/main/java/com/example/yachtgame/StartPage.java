@@ -1,24 +1,37 @@
 package com.example.yachtgame;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class recordBoard extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class StartPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_board);
+        setContentView(R.layout.activity_start_page);
+
+        findViewById(R.id.btnStartGame).setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+//            화면 전환 효과
+//            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        });
+
+//        Record 버튼 클릭
+        findViewById(R.id.btnViewRecord).setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), RecordBoard.class);
+            startActivity(intent);
+        });
+//        Exit 버튼 클릭
+        findViewById(R.id.btnExit).setOnClickListener(v -> finish());
+
         doFullScreen();
     }
 
-    public void exitGame(View view) {
-        finish();
-    }
-
-    //     전체화면 모드
+    //    전체화면 모드
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

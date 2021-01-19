@@ -8,9 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.YachtGame">
-        <activity android:name=".recordBoard"></activity>
+        <activity android:name=".RecordBoard"></activity>
         <activity
-            android:name=".startPage"
+            android:name=".StartPage"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

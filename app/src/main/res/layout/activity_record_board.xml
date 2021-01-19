@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".recordBoard">
+    tools:context=".RecordBoard">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +30,10 @@
     </RelativeLayout>
 
     <ListView
+        android:id="@+id/recordListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@color/black_overlay"
+        android:dividerHeight="1.5dp"/>
 
 </LinearLayout>

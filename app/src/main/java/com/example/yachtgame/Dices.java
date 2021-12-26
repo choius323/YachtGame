@@ -125,6 +125,8 @@ public class Dices {
         for (int i = 0; i < diceNumber; i++) {
             dice[i].keep = false;
             dice[i].imageView.setY(beginDiceY);
+            dice[i].imageView.setImageResource(R.drawable.dice1);
+            dice[i].imageView.clearAnimation();
         }
     }
 

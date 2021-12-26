@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.totalScore)).setText("");
         fillScore = 0;
 
-        btnReset.setVisibility(View.INVISIBLE);
+//        btnReset.setVisibility(View.INVISIBLE);
         btnRoll.setClickable(true);
     }
 

@@ -1,10 +1,10 @@
 package com.example.yachtgame;
 
-import android.content.DialogInterface;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -25,12 +25,19 @@ public class MainActivity extends AppCompatActivity {
     private ScoreTable scoreTable;
     private int fillScore = 0;
     private SQLiteDatabase db;
+//    int[] scores = new int[12];
+
+    static int LIGHT_TEXT_COLOR;
+    static int DARK_TEXT_COLOR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         doFullScreen();
+
+        LIGHT_TEXT_COLOR = getResources().getColor(R.color.light_text, this.getTheme());
+        DARK_TEXT_COLOR = getResources().getColor(R.color.dark_text, this.getTheme());
 
 //         Dice(주사위 그룹) 클래스 객체 생성
         dices = new Dices(getApplicationContext());
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < ScoreTable.scoreNum; i++) {
             int id = getResources().getIdentifier("score" + (i + 1), "id", "com.example.yachtgame");
             scoreViews[i] = findViewById(id);
+            scoreViews[i].setTextColor(LIGHT_TEXT_COLOR);
         }
         scoreTable = new ScoreTable(scoreViews);
 
@@ -75,13 +83,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void previewScores() {
+        int[] scores = scoreTable.calcScore(dices.getDiceValues());
+        Log.i("scores length", String.valueOf(scores.length));
+        for (int i = 0; i < scores.length; i++) {
+            TextView tv = scoreTable.scoreViews[i];
+            Log.i("textView Clickable", String.valueOf(tv.isClickable()));
+            if (tv.getCurrentTextColor() == LIGHT_TEXT_COLOR) {
+                tv.setText("" + scores[i]);
+//                tv.setTextColor(LIGHT_TEXT_COLOR);
+            }
+        }
+    }
+
     //     점수판 클릭(점수 입력)
     public void onClickScore(View view) {
 //        비어있을 때만 작동
         TextView textView = (TextView) view;
-        if (textView.getText().equals("")) {
-            int score = scoreTable.calcScore((TextView) view, dices.getDiceValues());
-            textView.setText("" + score);
+        Log.i("view equal", String.valueOf(view == textView));
+        if (textView.getCurrentTextColor() == LIGHT_TEXT_COLOR) {
+            Log.i("textView Color", String.valueOf(textView.getCurrentTextColor()));
+            Log.i("textView Color2", String.valueOf(getResources().getColor(R.color.light_text, this.getTheme())));
+//            int[] scores = scoreTable.calcScore(dices.getDiceValues());
+//            textView.setText("" + scores);
+            textView.setTextColor(DARK_TEXT_COLOR);
             fillScore += 1;
 
             int subScore = scoreTable.getSubScore();
@@ -93,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.totalScore)).setText("" + totalScore);
 
             setRollCountText(dices.resetRollCount());
+            Log.i("textView Color3", String.valueOf(textView.getCurrentTextColor()));
+            for (TextView tv : scoreTable.scoreViews) {
+                Log.i("textView Color", String.valueOf(tv.getCurrentTextColor()));
+                if(tv.getCurrentTextColor() == LIGHT_TEXT_COLOR){
+                    tv.setText("");
+                }
+            }
+
             dices.resetDices();
             dices.dicesClickable(false);
 //        점수판 다 채웠는지 확인
@@ -111,9 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
     //    주사위 굴리기
     public void rollDices(View view) {
+        scoreTable.scoresClickable(true);
         int rollCount = dices.rollDice();
         setRollCountText(rollCount);
-        scoreTable.scoresClickable(true);
+        previewScores();
     }
 
     //    모든 칸을 채운 후 게임 끝
@@ -130,20 +164,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(userName);
 
 //        Ok 버튼 클릭
-        builder.setPositiveButton("Record", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("Record", (dialog, which) -> {
 //                DB에 데이터 저장
-                db.execSQL("Insert Into ScoreBoard (Name, Score) values ('" + userName.getText().toString() + "', '" + totalScore + "')");
-            }
+            db.execSQL("Insert Into ScoreBoard (Name, Score) values ('" + userName.getText().toString() + "', '" + totalScore + "')");
         });
 
 //        Cancel 버튼 클릭
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
         });
 
         AlertDialog editDialog = builder.create();

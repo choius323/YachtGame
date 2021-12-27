@@ -1,5 +1,6 @@
 package com.example.yachtgame;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -13,88 +14,76 @@ public class ScoreTable {
         scoresClickable(false);
     }
 
-//     해당하는 칸 점수 계산
-    public int calcScore(TextView selectedView, int[] values) {
-        int sum = 0;
+    //     해당하는 칸 점수 계산
+    public int[] calcScore(int[] values) {
+        int[] scores = new int[12];
 
 //        Ones ~ Sixes (selected number * count)
         for (int i = 0; i < 6; i++) {
-            if (scoreViews[i] == selectedView) {
-                for (int value : values) {
-                    if (value == i + 1) {
-                        sum += i + 1;
-                    }
+            for (int value : values) {
+                if (value == i + 1) {
+                    scores[i] += i + 1;
                 }
-                break;
             }
         }
         Arrays.sort(values);
 
-        if (scoreViews[6] == selectedView) {
 //            Choice (sum values)
-            for (int value : values) {
-                sum += value;
-            }
+        for (int value : values) {
+            scores[6] += value;
+        }
 
-        } else if (scoreViews[7] == selectedView) {
-//            4 of a Kind (sum values)
-            if (values[0] == values[3] || values[1] == values[4]) {
-                sum = values[0] + values[1] * 3 + values[4];
-            }
+//          4 of a Kind (sum values)
+        if (values[0] == values[3] || values[1] == values[4]) {
+            scores[7] = values[0] + values[1] * 3 + values[4];
+        }
 
-        } else if (scoreViews[8] == selectedView) {
 //            Full House (sum values)
-            if (values[0] == values[1] && values[3] == values[4] && values[0] != values[4]) {
-                if (values[2] == values[1] || values[2] == values[3]) {
-                    sum = values[0] * 2 + values[2] + values[4] * 2;
-                }
-            }
-
-        } else if (scoreViews[9] == selectedView) {
-//            Small Straight (15)
-            int count = 0;
-            for (int i = 0; i < values.length - 1; i++) {
-                if (values[i] + 1 == values[i + 1]) {
-                    count += 1;
-                }
-            }
-            if (count >= 3) {
-                sum = 15;
-            }
-
-        } else if (scoreViews[10] == selectedView) {
-//            Large Straight (30)
-            for (int i = 0; i < values.length - 1; i++) {
-                if (values[i] + 1 != values[i + 1]) {
-                    sum = 0;
-                    break;
-                }
-                sum = 30;
-            }
-
-        } else if (scoreViews[11] == selectedView) {
-//            Yacht (50)
-            int temp = values[0];
-            for (int i = 0; i < values.length && temp == values[i]; i++) {
-                if (i == 4) {
-                    sum = 50;
-                    break;
-                }
+        if (values[0] == values[1] && values[3] == values[4] && values[0] != values[4]) {
+            if (values[2] == values[1] || values[2] == values[3]) {
+                scores[8] = values[0] * 2 + values[2] + values[4] * 2;
             }
         }
 
-        scoresClickable(false);
-        return sum;
+//            Small Straight (15)
+        int count = 0;
+        for (int i = 0; i < values.length - 1; i++) {
+            if (values[i] + 1 == values[i + 1]) {
+                count += 1;
+            }
+        }
+        if (count >= 3) {
+            scores[9] = 15;
+        }
+
+//            Large Straight (30)
+        for (int i = 0; i < values.length - 1; i++) {
+            if (values[i] + 1 != values[i + 1]) {
+                scores[10] = 0;
+                break;
+            }
+            scores[10] = 30;
+        }
+
+//            Yacht (50)
+        int temp = values[0];
+        for (int i = 0; i < values.length && temp == values[i]; i++) {
+            if (i == 4) {
+                scores[11] = 50;
+                break;
+            }
+        }
+//        }
+
+        return scores;
     }
 
-//    서브 점수 계산 (>=63 이면 총점 +35점)
+    //    서브 점수 계산 (>=63 이면 총점 +35점)
     public int getSubScore() {
         int subScore = 0;
         for (TextView view : Arrays.copyOf(scoreViews, 6)) {
-            String str = (String) view.getText();
-            if (str.equals("")) {
-                subScore += 0;
-            } else {
+            if (view.getCurrentTextColor() == MainActivity.DARK_TEXT_COLOR) {
+                String str = (String) view.getText();
                 subScore += Integer.parseInt(str);
             }
         }
@@ -102,14 +91,12 @@ public class ScoreTable {
         return subScore;
     }
 
-//    총점 계산
+    //    총점 계산
     public int getTotalScore() {
         int totalScore = 0;
-        for(TextView view : Arrays.copyOfRange(scoreViews, 6, 12)){
-            String str = (String) view.getText();
-            if (str.equals("")) {
-                totalScore += 0;
-            } else {
+        for (TextView view : Arrays.copyOfRange(scoreViews, 6, 12)) {
+            if (view.getCurrentTextColor() == MainActivity.DARK_TEXT_COLOR) {
+                String str = (String) view.getText();
                 totalScore += Integer.parseInt(str);
             }
         }
@@ -117,15 +104,17 @@ public class ScoreTable {
         return totalScore;
     }
 
-    public void scoresClickable(boolean clickable){
-        for(TextView s : scoreViews){
-            s.setClickable(clickable);
+    public void scoresClickable(boolean clickable) {
+        for (TextView tv : scoreViews) {
+            tv.setClickable(clickable);
+            Log.i("change clickable", String.valueOf(tv.getId()) + " " + tv.isClickable());
         }
     }
 
-    public void resetScoreViews(){
-        for(TextView s : scoreViews){
-            s.setText("");
+    public void resetScoreViews() {
+        for (TextView tv : scoreViews) {
+            tv.setText("");
+            tv.setTextColor(MainActivity.LIGHT_TEXT_COLOR);
         }
         scoresClickable(false);
     }

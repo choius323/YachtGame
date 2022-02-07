@@ -7,11 +7,13 @@ import java.util.Arrays;
 
 public class ScoreTable {
     TextView[] scoreViews;
-    public static int scoreNum = 12;
+    public static int SCORE_NUM = 12;
 
-    public ScoreTable(TextView[] scoreViews) {
-        this.scoreViews = scoreViews;
-        scoresClickable(false);
+//    public ScoreTable(TextView[] scoreViews) {
+//        this.scoreViews = scoreViews;
+//    }
+
+    public ScoreTable() {
     }
 
     //     해당하는 칸 점수 계산
@@ -91,6 +93,16 @@ public class ScoreTable {
         return subScore;
     }
 
+    //    서브 점수 계산 (>=63 이면 총점 +35점)
+    public int getSubScore(int[] scores) {
+        int subScore = 0;
+        for (int score : Arrays.copyOf(scores, 6)) {
+            subScore += score;
+        }
+
+        return subScore;
+    }
+
     //    총점 계산
     public int getTotalScore() {
         int totalScore = 0;
@@ -104,18 +116,13 @@ public class ScoreTable {
         return totalScore;
     }
 
-    public void scoresClickable(boolean clickable) {
-        for (TextView tv : scoreViews) {
-            tv.setClickable(clickable);
-            Log.i("change clickable", String.valueOf(tv.getId()) + " " + tv.isClickable());
+    //    총점 계산
+    public int getTotalScore(int[] scores) {
+        int totalScore = 0;
+        for (int score : Arrays.copyOfRange(scores, 6, 12)) {
+            totalScore += score;
         }
-    }
 
-    public void resetScoreViews() {
-        for (TextView tv : scoreViews) {
-            tv.setText("");
-            tv.setTextColor(MainActivity.LIGHT_TEXT_COLOR);
-        }
-        scoresClickable(false);
+        return totalScore;
     }
 }

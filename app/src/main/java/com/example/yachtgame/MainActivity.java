@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnRoll;
@@ -25,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private ScoreTable scoreTable;
     private int fillScore = 0;
     private SQLiteDatabase db;
-//    int[] scores = new int[12];
+    int[] scores = new int[12];
+    boolean[] isFill = new boolean[12];
+    TextView[] scoreViews = new TextView[ScoreTable.SCORE_NUM];
 
     static int LIGHT_TEXT_COLOR;
     static int DARK_TEXT_COLOR;
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         doFullScreen();
+
+        Arrays.fill(scores, 0);
+        Arrays.fill(isFill, false);
 
         LIGHT_TEXT_COLOR = getResources().getColor(R.color.light_text, this.getTheme());
         DARK_TEXT_COLOR = getResources().getColor(R.color.dark_text, this.getTheme());
@@ -47,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //         ScoreTable(점수판) 객체 생성
-        TextView[] scoreViews = new TextView[ScoreTable.scoreNum];
-        for (int i = 0; i < ScoreTable.scoreNum; i++) {
+        for (int i = 0; i < ScoreTable.SCORE_NUM; i++) {
             int id = getResources().getIdentifier("score" + (i + 1), "id", "com.example.yachtgame");
             scoreViews[i] = findViewById(id);
             scoreViews[i].setTextColor(LIGHT_TEXT_COLOR);
         }
-        scoreTable = new ScoreTable(scoreViews);
+        scoreTable = new ScoreTable();
+        scoresClickable(false);
 
 //         주사위 초기 위치, 움직이는 거리 계산
         ImageView dice = findViewById(R.id.dice1);
@@ -87,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         int[] scores = scoreTable.calcScore(dices.getDiceValues());
         Log.i("scores length", String.valueOf(scores.length));
         for (int i = 0; i < scores.length; i++) {
-            TextView tv = scoreTable.scoreViews[i];
+            TextView tv = scoreViews[i];
             Log.i("textView Clickable", String.valueOf(tv.isClickable()));
             if (tv.getCurrentTextColor() == LIGHT_TEXT_COLOR) {
                 tv.setText("" + scores[i]);
@@ -100,8 +107,15 @@ public class MainActivity extends AppCompatActivity {
     public void onClickScore(View view) {
 //        비어있을 때만 작동
         TextView textView = (TextView) view;
-        Log.i("view equal", String.valueOf(view == textView));
-        if (textView.getCurrentTextColor() == LIGHT_TEXT_COLOR) {
+        int index = 0;
+        for(;index<scoreTable.SCORE_NUM;index++){
+            if(scoreViews[index] == textView){
+                break;
+            }
+        }
+
+//        Log.i("getTransitionName", textView.name);
+        if (!isFill[index] && !textView.getText().equals("")) {
             Log.i("textView Color", String.valueOf(textView.getCurrentTextColor()));
             Log.i("textView Color2", String.valueOf(getResources().getColor(R.color.light_text, this.getTheme())));
 //            int[] scores = scoreTable.calcScore(dices.getDiceValues());
@@ -109,8 +123,12 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextColor(DARK_TEXT_COLOR);
             fillScore += 1;
 
-            int subScore = scoreTable.getSubScore();
-            int totalScore = scoreTable.getTotalScore() + subScore;
+
+            scores[index] = Integer.parseInt((String) textView.getText());
+            isFill[index] = true;
+
+            int subScore = scoreTable.getSubScore(scores);
+            int totalScore = scoreTable.getTotalScore(scores) + subScore;
             if (subScore >= 63) {
                 totalScore += 35;
             }
@@ -119,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
             setRollCountText(dices.resetRollCount());
             Log.i("textView Color3", String.valueOf(textView.getCurrentTextColor()));
-            for (TextView tv : scoreTable.scoreViews) {
+            for (TextView tv : scoreViews) {
                 Log.i("textView Color", String.valueOf(tv.getCurrentTextColor()));
-                if(tv.getCurrentTextColor() == LIGHT_TEXT_COLOR){
+                if (tv.getCurrentTextColor() == LIGHT_TEXT_COLOR) {
                     tv.setText("");
                 }
             }
@@ -129,9 +147,7 @@ public class MainActivity extends AppCompatActivity {
             dices.resetDices();
             dices.dicesClickable(false);
 //        점수판 다 채웠는지 확인
-            if (fillScore < 12) {
-//                setRollCountText(dices.resetRollCount());
-            } else {
+            if (fillScore >= 12) {
                 endGame(totalScore);
             }
         }
@@ -144,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     //    주사위 굴리기
     public void rollDices(View view) {
-        scoreTable.scoresClickable(true);
+        scoresClickable(true);
         int rollCount = dices.rollDice();
         setRollCountText(rollCount);
         previewScores();
@@ -181,11 +197,13 @@ public class MainActivity extends AppCompatActivity {
     public void resetGame(View view) {
         dices.resetDices();
         dices.resetRollCount();
-        scoreTable.resetScoreViews();
+        resetScoreViews();
         setRollCountText(dices.getRollCount());
         ((TextView) findViewById(R.id.subScore)).setText("");
         ((TextView) findViewById(R.id.totalScore)).setText("");
         fillScore = 0;
+        Arrays.fill(scores, 0);
+        Arrays.fill(isFill, false);
 
 //        btnReset.setVisibility(View.INVISIBLE);
         btnRoll.setClickable(true);
@@ -198,6 +216,21 @@ public class MainActivity extends AppCompatActivity {
     //    roll Count 텍스트 설정
     public void setRollCountText(int count) {
         rollTextView.setText(String.format(getResources().getString(R.string.rollCountText), count));
+    }
+
+    public void resetScoreViews() {
+        for (TextView tv : scoreViews) {
+            tv.setText("");
+            tv.setTextColor(MainActivity.LIGHT_TEXT_COLOR);
+        }
+        scoresClickable(false);
+    }
+
+    public void scoresClickable(boolean clickable) {
+        for (TextView tv : scoreViews) {
+            tv.setClickable(clickable);
+            Log.i("change clickable", tv.getId() + " " + tv.isClickable());
+        }
     }
 
     //     전체화면 모드
